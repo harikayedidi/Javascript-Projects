@@ -15,6 +15,14 @@
     $(document).ready(function() {
         $("#check").click(function() {
             $("#res").empty();
+            /*code for CORS or if you can comment it out if using a CORS plugin on your browser */
+             $.ajaxPrefilter(function(options) {
+                if (options.crossDomain && jQuery.support.cors) {
+                    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+                    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+                    //options.url = "http://cors.corsproxy.io/url=" + options.url;
+                }
+            });
             var sunsign = $("#enteredsunsign").val();
             /*Get horoscope from ganeshaspeaks */
             $.get("https://www.ganeshaspeaks.com/horoscopes/daily-horoscope/" + sunsign, function(results) {
