@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <title>abc</title>
+</head>
+
+<body style="width: 600px;">
+    <h3> Daily Horoscope from ganeshaspeaks and astrology.com </h3> Enter your sunsign:
+    <input id="enteredsunsign" type="text" name="sunsign" value="" />
+    <input type="submit" name="submit" id="check" value="Check Horoscope" />
+    <br/>
+    <div id="res"></div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#check").click(function() {
+            $("#res").empty();
+            var sunsign = $("#enteredsunsign").val();
+            /*Get horoscope from ganeshaspeaks */
+            $.get("https://www.ganeshaspeaks.com/horoscopes/daily-horoscope/" + sunsign, function(results) {
+                var m = $(results).find("div#daily").children().find("p.margin-top-xs-0").html();
+                $("#res").append("<hr><b>" + sunsign + " horoscope for " + new Date().toJSON().slice(0, 10) + " : <br/></b>" + m);
+            });
+            /*Get horoscope from astrology */
+            $.get("https://www.astrology.com/horoscope/daily/" + sunsign + ".html", function(results) {
+                var n = $(results).find("div.page-horoscope-text").html();
+                $("#res").append("<br/><hr><b> Astrology.com says : <br/></b>" + n);
+            });
+        });
+    });
+    </script>
+</body>
+
+</html>
