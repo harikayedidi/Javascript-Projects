@@ -15,7 +15,7 @@
     $(document).ready(function() {
         $("#check").click(function() {
             $("#res").empty();
-            /*code for CORS or if you can comment it out if using a CORS plugin on your browser */
+            /*code for CORS or you can comment it out if using a CORS plugin on your browser */
              $.ajaxPrefilter(function(options) {
                 if (options.crossDomain && jQuery.support.cors) {
                     var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
