@@ -7,29 +7,25 @@
 <body style="width: 600px;">
     <h3> Daily Horoscope from ganeshaspeaks and astrology.com </h3> Enter your sunsign:
     <input id="enteredsunsign" type="text" name="sunsign" value="" />
-    <input type="submit" name="submit" id="check" value="Check Horoscope" />
-    <br/>
+    <input type="submit" name="submit" id="check" value="Check Horoscope" /><br/>
     <div id="res"></div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         $("#check").click(function() {
             $("#res").empty();
-            /*code for CORS or if you can comment it out if using a CORS plugin on your browser */
+            /*code for CORS*/
              $.ajaxPrefilter(function(options) {
                 if (options.crossDomain && jQuery.support.cors) {
                     var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
                     options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
-                    //options.url = "http://cors.corsproxy.io/url=" + options.url;
                 }
             });
             var sunsign = $("#enteredsunsign").val();
-            /*Get horoscope from ganeshaspeaks */
             $.get("https://www.ganeshaspeaks.com/horoscopes/daily-horoscope/" + sunsign, function(results) {
                 var m = $(results).find("div#daily").children().find("p.margin-top-xs-0").html();
                 $("#res").append("<hr><b>" + sunsign + " horoscope for " + new Date().toJSON().slice(0, 10) + " : <br/></b>" + m);
             });
-            /*Get horoscope from astrology */
             $.get("https://www.astrology.com/horoscope/daily/" + sunsign + ".html", function(results) {
                 var n = $(results).find("div.page-horoscope-text").html();
                 $("#res").append("<br/><hr><b> Astrology.com says : <br/></b>" + n);
