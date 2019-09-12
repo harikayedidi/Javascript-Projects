@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dynamic table with snake pattern</title>
+</head>
+<style type="text/css">
+table {
+    border: 1px solid black;
+}
+
+table,
+td {
+    border: 1px solid black;
+}
+</style>
+
+<body>
+    <form id="table-input" method="POST">
+        Number of rows: <input type="text" name="rows" id="rows" value="">
+        <br />
+        Number of cols: <input type="text" name="cols" id="cols" value="">
+        <br>
+        <input type="submit" id="submitbutton" onclick="generateTable();return false;">
+    </form>
+    <div id="dynamic-table"></div>
+    <script type="text/javascript">
+    function generateTable() {
+        var tr, td;
+        var rows = document.querySelector('#rows').value;
+        var cols = document.querySelector('#cols').value;
+        var tablediv = document.querySelector('#dynamic-table');
+        var table = document.createElement('table');
+        var tableBody = document.createElement('TBODY');
+        table.appendChild(tableBody);
+        if (!isNaN(rows) && !isNaN(cols)) {
+            for (let i = 1; i <= rows; i++) {
+                tr = document.createElement('tr');
+                tableBody.appendChild(tr);
+                for (let j = 1; j <= cols; j++) {
+                    td = document.createElement('td');
+                    if (j == 1) {
+                        tr.appendChild(td).innerHTML = i;
+                    } else if (j % 2 == 0) {
+                        tr.appendChild(td).innerHTML = (rows - i) + rows * (j - 1) + 1;
+                    } else {
+                        tr.appendChild(td).innerHTML = i + rows * (j - 1);
+                    }
+                }
+            }
+            tablediv.appendChild(table);
+        } else {
+            tablediv.innerHTML = "enter valid input";
+        }
+    }
+    </script>
+</body>
+
+</html>
